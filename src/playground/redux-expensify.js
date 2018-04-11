@@ -17,7 +17,7 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
     }
 };
 
-//Filters Reducer
+//Filters Reducer 
 const filtersReducerDefaultState = {
     'text': '',
     'sortBy': 'date',
