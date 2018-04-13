@@ -1,7 +1,7 @@
 import {createStore, combineReducers} from 'redux';
 import uuid from 'uuid';
 
-/*** ACTIONS GENERATORS/CREATORS***/
+/*** ACTIONS GENERATORS/CREATORS (2)***/
 //ADD_EXPENSE
 const addExpense = (
     {
@@ -63,14 +63,18 @@ const setEndDate = (endDate) => ({
 });
 
 
-/**** REDUCERS ******/
+/**** REDUCERS (3)******/
 //Expenses Reducer
 const expensesReducerDefaultState = [];
+/**
+*state: current state of store
+*action: new values that comes from the action generators
+*/
 const expensesReducer = (state = expensesReducerDefaultState, action) => {
     switch(action.type){
         case 'ADD_EXPENSE':
             return [
-                ...state,
+                ...state, //spreading operator
                 action.expense
             ];
         case 'REMOVE_EXPENSE':
@@ -79,7 +83,7 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
             return state.map((expense) => {
                 if(expense.id === action.id){
                     return {
-                        ...expense,
+                        ...expense, //spreading object operator
                         ...action.updates
                     }
                 }else{
@@ -162,7 +166,7 @@ store.subscribe(() => {
     console.log(visibleExpenses);
 });
 
-//Dispatches to call an action generators
+//Dispatches to call an action generators (1)
 const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: -9999 }));
 const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300, createdAt: 1000 }));
 // store.dispatch(removeExpense({ id: expenseOne.expense.id }));
