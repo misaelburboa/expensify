@@ -11,7 +11,7 @@ export default class ExpenseForm extends React.Component{
             amount: props.expense ? (props.expense.amount / 100).toString() : '',
             createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
             calendarFocused: false,
-            'error': ''
+            error: ''
         };
     }
 
