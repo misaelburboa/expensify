@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import moment from 'moment';
 
 const config = {
     apiKey: "AIzaSyCf6ih7gQRI2bBD_rHjAiUoZQQ2tfkFU5k",
@@ -13,14 +14,62 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
-const constOnValueChange = database.ref().on('value', (snapshot) => {
-    const obj = snapshot.val();
-    console.log(`${obj.name} is a ${obj.job.title} in ${obj.job.company}`);
-}, (e) => {
-    console.log("Error");
+//child_removed
+database.ref('expenses').on('child_removed', snapshot => {
+    console.log(snapshot.key, snapshot.val());
 });
 
-database.ref('job/company').set('Internet Brands');
+//child_changed
+database.ref('expenses').on('child_changed', snapshot => {
+    console.log(snapshot.key, snapshot.val());
+});
+
+//child_added
+database.ref('expenses').on('child_added', snapshot => {
+    console.log(snapshot.key, snapshot.val());
+});
+
+// database.ref('expenses')
+//     .once('value')
+//     .then((snapshot) => {
+
+//         const expenses = [];
+//         snapshot.forEach(childSnapshot => {
+//             expenses.push({
+//                 id: childSnapshot.key,
+//                 ...childSnapshot.val()
+//             });
+//         });
+//         console.log(expenses);
+//     });
+
+/**With subscription */
+// database.ref('expenses').on('value', snapshot => {
+//         const expenses = [];
+//         snapshot.forEach(childSnapshot => {
+//             expenses.push({
+//                 id: childSnapshot.key,
+//                 ...childSnapshot.val()
+//             });
+//         });
+//         console.log(expenses);
+//     });
+
+database.ref('expenses').push({
+    description: 'Energy Bill',
+    note: 'Some Note',
+    amount: 800,
+    createdAt: moment().toString()
+});
+
+// const constOnValueChange = database.ref().on('value', (snapshot) => {
+//     const obj = snapshot.val();
+//     console.log(`${obj.name} is a ${obj.job.title} in ${obj.job.company}`);
+// }, (e) => {
+//     console.log("Error");
+// });
+
+// database.ref('job/company').set('Internet Brands');
 // constOnValueChange = database.ref().on('value', (snapshot) => {
 //     console.log(snapshot.val());
 // }, (e) => {
