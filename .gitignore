@@ -64,3 +64,6 @@ public/dist/
 
 #Editor
 .vscode/
+
+.env.test
+.env.development
