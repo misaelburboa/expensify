@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 //firebase configuration stuff:
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'true') {
     require('dotenv').config({ path: '.env.test' });
 } else if (process.env.NODE_ENV === 'development') {
